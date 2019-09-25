@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "test": "tsc && mocha",
-    "build": "tsc && mkdirp dist && browserify index.js --standalone slpvalidate > dist/slpvalidate.js && uglifyjs dist/slpvalidate.js --compress > dist/slpvalidate.min.js"
+    "build": "tsc && mkdirp dist && browserify index.js --standalone slpvalidate > dist/slpvalidate.js && uglifyjs dist/slpvalidate.js --compress > dist/slpvalidate.min.js",
+    "build-pb": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./examples/pb --grpc_out=./examples/pb --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` -I./examples/pb ./examples/pb/*.proto && protoc --plugin=./node_modules/.bin/protoc-gen-ts=protoc-gen-ts --ts_out=./examples/pb -I ./examples/pb ./examples/pb/*.proto && tsc"
   },
   "author": "James Cramer",
   "license": "ISC",
@@ -28,6 +29,11 @@
     "grpc-bchrpc-node": "0.5.3",
     "browserify": "^16.2.2",
     "uglify-es": "^3.3.9",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "google-protobuf": "^3.0.0",
+    "grpc": "^1.11.0",
+    "grpc-tools": "^1.8.0",
+    "@grpc/proto-loader": "^0.1.0",
+    "grpc_tools_node_protoc_ts": "^2.5.4"
   }
 }
